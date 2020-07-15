@@ -56,7 +56,6 @@ display:inline;
       
     </tr>
   </thead>
-  
   <tbody>
   <c:forEach var="product" items="${l}">
     <tr>

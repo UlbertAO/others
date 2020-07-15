@@ -101,7 +101,7 @@ public class Vyntrausercontroller {
 	}
 	
 	@PostMapping("/addpro")
-	public ModelAndView addpro(@RequestBody products k)
+	public ModelAndView addpro (products k)
 	{
 		p.save(k);
 		ModelAndView mv=new ModelAndView();
@@ -125,6 +125,8 @@ public class Vyntrausercontroller {
 	{
 		ModelAndView mv=new ModelAndView();
 		List<products> l=new ArrayList<>();
+		//p.findAll().forEach(l::add);
+											
 		for(products d:p.findAll())
 		{
 			l.add(d);

@@ -65,9 +65,9 @@ public class AppSec extends WebSecurityConfigurerAdapter{
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 	
-		http.authorizeRequests()
-		.antMatchers("/addpro").hasRole("ADMIN")
-		.antMatchers("/listpro").hasRole("USER")
+		http.csrf().disable().headers().frameOptions().disable().and().authorizeRequests()
+		.antMatchers("/addpro","/listpro").hasRole("ADMIN")
+		.antMatchers("/vyntra").hasAnyRole("USER","ADMIN")
 		.antMatchers("/","/reg","/login").permitAll()
         .anyRequest().authenticated() // 7
         .and()
