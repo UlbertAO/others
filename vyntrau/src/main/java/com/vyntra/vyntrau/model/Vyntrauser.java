@@ -83,11 +83,11 @@ public class Vyntrauser {
 	public void setUid(int uid) {
 		this.uid = uid;
 	}
-	public String getUname() {
+	public String getUsername() {
 		return username;
 	}
-	public void setUname(String uname) {
-		this.username = uname;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getEmail() {
 		return email;

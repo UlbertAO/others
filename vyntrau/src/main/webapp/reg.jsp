@@ -129,7 +129,7 @@ A great platform to buy items recognized by Virtusa.
       <label for="user">UserName</label>
     </span>
     <span class="form-group col-md-5">
-      <input type="text" class="form-control" id="user" name="uname">
+      <input type="text" class="form-control" id="user" name="username">
     </span>
     
     <span class="form-group col-md-1">

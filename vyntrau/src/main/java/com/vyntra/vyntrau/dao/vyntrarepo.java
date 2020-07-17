@@ -7,5 +7,7 @@ import com.vyntra.vyntrau.model.Vyntrauser;
 
 @Repository
 public interface vyntrarepo extends JpaRepository<Vyntrauser,Integer> {
+    Vyntrauser findByUsername(String username);
+    Vyntrauser findByEmail(String email);
 
 }

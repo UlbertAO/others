@@ -5,14 +5,16 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.vyntra.vyntrau.model.Vyntrauser;
+
 import java.util.*;
 
 public class UserPrincipal implements UserDetails{
 	
-	private User user;
+	private Vyntrauser user;
     private List<AuthGroup> authGroups;
 
-    public UserPrincipal(User user, List<AuthGroup> authGroups) {
+    public UserPrincipal(Vyntrauser user, List<AuthGroup> authGroups) {
         super();
         this.user = user;
         this.authGroups = authGroups;

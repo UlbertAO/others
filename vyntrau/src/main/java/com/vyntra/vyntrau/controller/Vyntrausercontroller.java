@@ -15,8 +15,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.vyntra.vyntrau.dao.productsrepo;
 import com.vyntra.vyntrau.dao.vyntrarepo;
+import com.vyntra.vyntrau.exception.UsernameAlreadyExist;
 import com.vyntra.vyntrau.model.Vyntrauser;
 import com.vyntra.vyntrau.model.products;
+import com.vyntra.vyntrau.security.AuthGroup;
+import com.vyntra.vyntrau.security.AuthGroupRepo;
 
 
 
@@ -65,10 +68,19 @@ public class Vyntrausercontroller {
 	vyntrarepo u;
 	@Autowired
 	productsrepo p;
+	@Autowired
+	AuthGroupRepo authGroupRepo;
+	
 	@GetMapping("/")
 	public String index()
 	{
 		return "index.jsp";
+	}
+	
+	@GetMapping("/logout")
+	public String logout()
+	{
+		return "logout.jsp";
 	}
 	
 	@GetMapping("/vyntra")
@@ -89,16 +101,35 @@ public class Vyntrausercontroller {
 	@ResponseBody
 	public String register(Vyntrauser s)
 	{
+		if(u.findByUsername(s.getUsername())!=null)
+				throw new UsernameAlreadyExist("username \""+s.getUsername()+"\" Already Exist");
 		u.save(s);
+		if(authGroupRepo.findByUsername(s.getUsername())==null)
+			System.out.println("username already exist");
+		else
+		{
+			AuthGroup authGroup=new AuthGroup(s.getUsername(),"USER");	
+			authGroupRepo.save(authGroup);
+		}
+			
 		return "Successfully Registered";
 	}
-	@RequestMapping("/login")
-	public ModelAndView login(String uname,String password)
+	
+	@GetMapping("/login")
+	public ModelAndView login()
 	{
 		ModelAndView mv=new ModelAndView("login.jsp");
-		
 		return mv;
 	}
+	
+	/*
+	@PostMapping("/login")
+	public ModelAndView login(@RequestBody String username,@RequestBody String password)
+	{
+		ModelAndView mv=new ModelAndView("Vyntra.jsp");
+		return mv;
+	}
+	*/
 	
 	@PostMapping("/addpro")
 	public ModelAndView addpro (products k)

@@ -7,6 +7,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.vyntra.vyntrau.dao.vyntrarepo;
+import com.vyntra.vyntrau.model.Vyntrauser;
+
 
 @Service
 public class VyntraUserDetailsService implements UserDetailsService{
@@ -17,19 +20,28 @@ public class VyntraUserDetailsService implements UserDetailsService{
 		return new VyntraUserDetails(username);
 	}
 	*/
+	private final vyntrarepo vyntraRepo;
 
-    private final UserRepo userRepo;
+    //private final UserRepo userRepo;
     private final AuthGroupRepo authGroupRepo;
-
+/*
     public VyntraUserDetailsService(UserRepo userRepo, AuthGroupRepo authGroupRepo) {
         super();
         this.userRepo = userRepo;
         this.authGroupRepo = authGroupRepo;
     }
+  */  
 
+    
+    public VyntraUserDetailsService(vyntrarepo vyntraRepo, AuthGroupRepo authGroupRepo) {
+        super();
+        this.vyntraRepo = vyntraRepo;
+        this.authGroupRepo = authGroupRepo;
+    }
+    
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = this.userRepo.findByUsername(username);
+		Vyntrauser user = this.vyntraRepo.findByUsername(username);
         if (user == null) {
             throw new UsernameNotFoundException("No Such UserName:" + username);
         }
